@@ -1,7 +1,14 @@
+//setting variable that finds and reads the keys.js file which stores the twitter API keys
 var keys = require("./keys.js");
+console.log(keys);
+ 
+//setting variable that finds and reads the specified npm package
+var Twitter = require('twitter');
 
+//variable that stores the argument at index 2, entered by the user
 var input = process.argv[2];
 
+//if/else statement that deligates what shoould happen based on predetermined inputs from process.argv[2]
 if (input === "my-tweets"){
 	console.log("twitter");
 }

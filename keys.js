@@ -1,3 +1,5 @@
+console.log("Start it UP")
+
 exports.twitterKeys = {
   consumer_key: 'At1sJuJPScuGFzltylqbHNHBS',
   consumer_secret: 'Jb4kRayRXyr66ImiwXptleeDIPSkuoTPyBEIRbGRSWEH4Y1EWx',
