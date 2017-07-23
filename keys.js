@@ -1,8 +1,10 @@
-console.log("Start it UP")
+// print message to make sure this file is being referenced by the liri.js file
+console.log("Start it UP");
 
-exports.twitterKeys = {
-  consumer_key: 'At1sJuJPScuGFzltylqbHNHBS',
-  consumer_secret: 'Jb4kRayRXyr66ImiwXptleeDIPSkuoTPyBEIRbGRSWEH4Y1EWx',
-  access_token_key: '154599235-0w62WejyeBvQ95NUwNwLlsGpc8K2JO071FcJ3U3W',
-  access_token_secret: 'MpeZy0g35i4LqTmqRUU4GaZPl2ADKRsv2vcilAN6qoMQV',
-}
+
+module.exports = {
+  consumer_key: 'FYh1fCBUVIfnVHW4yDS12OVJf',
+  consumer_secret: 'EJRATxRnCl4obVvwRBRFPoTZYDkguhti0FIwKU8p4G3ssQp7LH',
+  access_token: '154599235-aQL570x77BxRAnpqkwjsNRP75OHegqAf2H05JSKu',
+  access_token_secret: 'x1Rha9Wk2E8sbNlcHfqJqEzpADRewHui14qroBc7JX8ZL'
+}; 
