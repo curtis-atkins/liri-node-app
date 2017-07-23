@@ -1,0 +1,19 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "A command line node app that take in parameters and gives you back data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curtis-atkins/liri-node-app.git"
+  },
+  "author": "Curtis Atkins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/curtis-atkins/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/curtis-atkins/liri-node-app#readme"
+}
