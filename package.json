@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/curtis-atkins/liri-node-app#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "node-spotify-api": "^1.0.5",
+    "request": "^2.81.0",
     "twit": "^2.2.9"
   }
 }
