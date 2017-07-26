@@ -11,7 +11,7 @@ var Twitty = new Twit(keys);
 var Spotify = require('node-spotify-api');
 
 //setting variable that authenticates spotify API
-var Spotty = new Object(keys);
+//var Spotty = new Object(keys);
 
  //setting variable that finds and reads the specified package
 var request = require("request");
@@ -39,27 +39,17 @@ var spotify = new Spotify({
   secret: "b6f31901fb5a4df3a0df2abd7e747fce"
 });
 
-/* var moviedata = function(){
-	   console.log("Title: " + JSON.parse(body).Title);
-    console.log("Year: " + JSON.parse(body).Year);
-    console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-    console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-    console.log("Country: " + JSON.parse(body).Country);
-    console.log("Language: " + JSON.parse(body).Language);
-    console.log("Plot: " + JSON.parse(body).Plot);
-    console.log("Actors: " + JSON.parse(body).Actors);
-
-}
-*/
-
 //  if/else statement that deligates what should happen based on predetermined inputs from process.argv[2]
 // if progress.argv[2] is strictly equal to the string my-tweets:
 if (input === "my-tweets"){
-	
+	  
 	//make a call to the twitter API to return tweets 
 	Twitty.get('search/tweets', parameters, gotData);
 
 	function gotData(err, data, response) {
+		console.log("err " + err);
+		console.log("res " + response);
+		console.log(" data " + data)
 		var tweets = data.statuses;
 		for(var i = 0; i < tweets.length; i++){
 
@@ -76,31 +66,32 @@ if (input === "my-tweets"){
 
 // if progress.argv[2] is strictly equal to the string spotify-this-song:
 else if(input === "spotify-this-song"){
-	if(title === ""){
+	if(title === undefined){
 		console.log("You forget to place a track title in process.argv[3]");
 	}
 	else{
 	//search spotify for the track that is passed in by the variale song
-	Spotify.search({ type: 'track', query: song }, function(err, data) {
+	spotify.search({ type: 'track', query: title }, function(err, data) {
   if (err) {
     return console.log('Error occurred: ' + err);
   }
- 
-console.log(data); 
+console.log("Artist Name: " + data.tracks.items[0].album.artists[0].name); 
+console.log("Song Title: " + data.tracks.items[0].name); 
+console.log("Song Preview Link: " + data.tracks.items[0].preview_url); 
+console.log("Album: " + data.tracks.items[0].album.name); 
 });
-	console.log("spotify");
 }
 }
 // if progress.argv[2] is strictly equal to the string movie-this:
 else if(input === "movie-this"){
-	if(title === ""){
+	if(title === undefined){
 		// We then run the request module on a URL with a JSON
 request("http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=40e9cece", function(error, response, body) {
 
   // If there were no errors and the response code was 200 (i.e. the request was successful)...
   if (!error && response.statusCode === 200) {
 
-    // Then we print out the imdbRating
+    // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
     console.log("Title: " + JSON.parse(body).Title);
     console.log("Year: " + JSON.parse(body).Year);
     console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
@@ -109,6 +100,7 @@ request("http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=40e9cece", fun
     console.log("Language: " + JSON.parse(body).Language);
     console.log("Plot: " + JSON.parse(body).Plot);
     console.log("Actors: " + JSON.parse(body).Actors);
+
   }
 });
 	}
@@ -118,7 +110,7 @@ request("http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=40e9cece", fun
   // If there were no errors and the response code was 200 (i.e. the request was successful)...
   if (!error && response.statusCode === 200) {
 
-    // Then we print out the imdbRating
+    // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
     console.log("Title: " + JSON.parse(body).Title);
     console.log("Year: " + JSON.parse(body).Year);
     console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
