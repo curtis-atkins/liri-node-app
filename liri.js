@@ -123,7 +123,7 @@ else if (input === "movie-this") {
 else if (input === "do-what-it-says") {
 	
 	//Read the file random.txt, split the string into an array with two values,
-	// the values are then placed into separate values and the spotify API is called again
+	// the values are then placed into separate variables and the spotify API is called again
     fs.readFile("random.txt", "utf8", function(err, data) {
         if (err) {
             return console.log(err);
@@ -153,5 +153,5 @@ else if (input === "do-what-it-says") {
 } else {
 	
 	//Message to inform user to enter the correct vaue in argv[2]
-    console.log("Input not recognized. Please enter one of the following phrases in process.argv[2]:\"my-tweets\", \"spotify-this-song\", \"movie-this\" or \"do-what-it-says\" ");
+    console.log("Input not recognized. Please enter one of the following strings in process.argv[2]:\"my-tweets\", \"spotify-this-song\", \"movie-this\" or \"do-what-it-says\" ");
 }
