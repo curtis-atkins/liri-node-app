@@ -37,6 +37,28 @@ var spotify = new Spotify({
     secret: "b6f31901fb5a4df3a0df2abd7e747fce"
 });
 
+
+function movieResponse(error, response, body) {
+  if (!error && response.statusCode === 200) {
+      responseContent = JSON.parse(body);
+
+      // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
+      console.log("Title: " + responseContent.Title);
+      console.log("Year: " + responseContent.Year);
+      console.log("IMDB Rating: " + responseContent.imdbRating);
+      // I have to check for this index to avoid an error, I think not all movies
+      // have rotten tomato ratings returned. 
+      if (responseContent.Ratings[1]) {
+        console.log("Rotten Tomatoes Rating: " + responseContent.Ratings[1].Value);
+      }
+      console.log("Country: " + responseContent.Country);
+      console.log("Language: " + responseContent.Language);
+      console.log("Plot: " + responseContent.Plot);
+      console.log("Actors: " + responseContent.Actors);
+      console.log("OMDB");
+  }
+}
+
 //  if/else statement that deligates what should happen based on predetermined inputs from process.argv[2]
 // if progress.argv[2] is strictly equal to the string my-tweets:
 if (input === "my-tweets") {
@@ -59,6 +81,7 @@ if (input === "my-tweets") {
 // if progress.argv[2] is strictly equal to the string spotify-this-song:
 else if (input === "spotify-this-song") {
     if (title === undefined) {
+        // the user will ask whats process.argv[3]? Remember that they don't see the code :) 
         console.log("You forget to place a track title in process.argv[3]");
     } else {
 		
@@ -84,38 +107,16 @@ else if (input === "movie-this") {
 		
         // We then run the request module on a URL with a JSON
         request("http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=40e9cece", function(error, response, body) {
-			
             // If there were no errors and the response code was 200 (i.e. the request was successful)...
-            if (!error && response.statusCode === 200) {
-				
-                // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
-                console.log("Title: " + JSON.parse(body).Title);
-                console.log("Year: " + JSON.parse(body).Year);
-                console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-                console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-                console.log("Country: " + JSON.parse(body).Country);
-                console.log("Language: " + JSON.parse(body).Language);
-                console.log("Plot: " + JSON.parse(body).Plot);
-                console.log("Actors: " + JSON.parse(body).Actors);
-            }
+            movieResponse(error, response, body)
         });
     } else {
         request("http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=40e9cece", function(error, response, body) {
-			
             // If there were no errors and the response code was 200 (i.e. the request was successful)...
-            if (!error && response.statusCode === 200) {
-				
-                // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
-                console.log("Title: " + JSON.parse(body).Title);
-                console.log("Year: " + JSON.parse(body).Year);
-                console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-                console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-                console.log("Country: " + JSON.parse(body).Country);
-                console.log("Language: " + JSON.parse(body).Language);
-                console.log("Plot: " + JSON.parse(body).Plot);
-                console.log("Actors: " + JSON.parse(body).Actors);
-                console.log("OMDB");
-            };
+            //
+            // This is repeating the code above, we can break this out into a function keeping with the 
+            // DRY principle (Dont Repeat Yourself)
+            movieResponse(error, response, body)
         })
     }
 }
