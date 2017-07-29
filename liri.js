@@ -87,33 +87,42 @@ else if (input === "movie-this") {
 			
             // If there were no errors and the response code was 200 (i.e. the request was successful)...
             if (!error && response.statusCode === 200) {
+                // Lets only run JSON.parse once and assign it to a variable
+                responseContent = JSON.parse(body);
 				
                 // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
-                console.log("Title: " + JSON.parse(body).Title);
-                console.log("Year: " + JSON.parse(body).Year);
-                console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-                console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-                console.log("Country: " + JSON.parse(body).Country);
-                console.log("Language: " + JSON.parse(body).Language);
-                console.log("Plot: " + JSON.parse(body).Plot);
-                console.log("Actors: " + JSON.parse(body).Actors);
+                console.log("Title: " + responseContent.Title);
+                console.log("Year: " + responseContent.Year);
+                console.log("IMDB Rating: " + responseContent.imdbRating);
+                console.log("Rotten Tomatoes Rating: " + responseContent.Ratings[1].Value);
+                console.log("Country: " + responseContent.Country);
+                console.log("Language: " + responseContent.Language);
+                console.log("Plot: " + responseContent.Plot);
+                console.log("Actors: " + responseContent.Actors);
             }
         });
     } else {
         request("http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=40e9cece", function(error, response, body) {
 			
             // If there were no errors and the response code was 200 (i.e. the request was successful)...
+            // This is repeating the code above, we can break this out into a function keeping with the 
+            // DRY principle (Dont Repeat Yourself)
             if (!error && response.statusCode === 200) {
+                responseContent = JSON.parse(body);
 				
                 // Then we print out the movie Title, Year, IMDB Rating, Rotten Tomatoes Rating, Country,Language, Plot and Actors
-                console.log("Title: " + JSON.parse(body).Title);
-                console.log("Year: " + JSON.parse(body).Year);
-                console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-                console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
-                console.log("Country: " + JSON.parse(body).Country);
-                console.log("Language: " + JSON.parse(body).Language);
-                console.log("Plot: " + JSON.parse(body).Plot);
-                console.log("Actors: " + JSON.parse(body).Actors);
+                console.log("Title: " + responseContent.Title);
+                console.log("Year: " + responseContent.Year);
+                console.log("IMDB Rating: " + responseContent.imdbRating);
+                // I have to check for this index to avoid an error, I think not all movies
+                // have rotten tomato ratings returned. 
+                if (responseContent.Ratings[1]) {
+                  console.log("Rotten Tomatoes Rating: " + responseContent.Ratings[1].Value);
+                }
+                console.log("Country: " + responseContent.Country);
+                console.log("Language: " + responseContent.Language);
+                console.log("Plot: " + responseContent.Plot);
+                console.log("Actors: " + responseContent.Actors);
                 console.log("OMDB");
             };
         })
